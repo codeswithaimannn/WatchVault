@@ -5,7 +5,8 @@ spring:
   # Secrets come from environment variables only (see backend/.env.example).
   # No default for the password, so the app fails fast if it is missing.
   datasource:
-    url: jdbc:mysql://localhost:3306/watchvault
+    # Run the MySQL session in UTC so DB defaults (CURRENT_TIMESTAMP) match what Hibernate writes.
+    url: jdbc:mysql://localhost:3306/watchvault?connectionTimeZone=UTC&forceConnectionTimeZoneToSession=true
     username: ${WATCHVAULT_DB_USERNAME:watchvault_app}
     password: ${WATCHVAULT_DB_PASSWORD}
 

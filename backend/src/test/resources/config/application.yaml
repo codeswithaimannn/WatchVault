@@ -1,0 +1,6 @@
+# Test classpath only. Spring Boot reads classpath:/config/ AFTER classpath:/ and lets it win,
+# so this overrides just the URL from the main application.yaml. Credentials still come from
+# WATCHVAULT_DB_USERNAME / WATCHVAULT_DB_PASSWORD; nothing secret lives here.
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/watchvault_test?connectionTimeZone=UTC&forceConnectionTimeZoneToSession=true

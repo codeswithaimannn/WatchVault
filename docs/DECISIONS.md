@@ -90,3 +90,21 @@ docs, TMDB watch-providers reference, TVmaze API docs. Re-check these if the pro
    the premiere), not the UK cinema date, even with `region=GB`. UK dates need
    `/movie/{id}/release_dates`. Until then, label it "Release date" rather than "UK release".
 9. Multi search mixes `movie`, `tv` and `person` results; filter on `media_type`.
+
+---
+
+## M1: Users schema and test database (2026-10-15)
+
+- **Preferred languages and genres live in child tables**, not JSON columns
+  (`user_preferred_languages`, `user_preferred_genres`). The database enforces no duplicates and
+  valid media types, and JPA maps them with a plain `@ElementCollection`. Genres are keyed by
+  `(media_type, genre_id)` because TMDB movie and TV genre IDs differ. There is no FK to a genres
+  table, because genre IDs are TMDB data and are validated in the app.
+- **Times are `DATETIME(6)` in UTC.** `TIMESTAMP` ends in 2038 and converts time zones silently.
+  The JDBC URL forces the session to UTC so `CURRENT_TIMESTAMP` defaults agree with Hibernate.
+- **Email** is `VARCHAR(254)` with a unique constraint, which is the real guard against duplicates.
+  The case-insensitive collation is a backstop, and the service also lowercases emails.
+  **Password hash** is `VARCHAR(255)`, which leaves room for an algorithm change.
+- **Tests use `watchvault_test` only**, via `src/test/resources/config/application.yaml`. It is on
+  the test classpath only and overrides just the URL, so every test (Maven or IDE) is isolated
+  without needing a profile annotation. A test asserts `DATABASE() = 'watchvault_test'`.
