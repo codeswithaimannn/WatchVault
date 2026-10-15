@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: watchvault
+
+  # Secrets come from environment variables only (see backend/.env.example).
+  # No default for the password, so the app fails fast if it is missing.
+  datasource:
+    url: jdbc:mysql://localhost:3306/watchvault
+    username: ${WATCHVAULT_DB_USERNAME:watchvault_app}
+    password: ${WATCHVAULT_DB_PASSWORD}
+
+  jpa:
+    # Flyway owns the schema; Hibernate only checks the entities match it.
+    hibernate:
+      ddl-auto: validate
+    # Keep database work inside services, not in the web layer.
+    open-in-view: false
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: UTC
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
