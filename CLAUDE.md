@@ -41,12 +41,28 @@ not been walked through.
 - Never present unavailable or uncertain data as fact (release dates, providers, episode schedules).
 
 ## External APIs
-- TMDB: primary source. Server-side credentials only. Respect rate limits (commonly documented
-  as about 40 requests per 10 seconds; verify in M0). Show the required TMDB logo and
-  "not endorsed or certified by TMDB" notice in an About/Credits section. Credit JustWatch next
-  to streaming availability. Check TMDB's terms on how long data may be cached.
+Verified in Milestone 0; details and sources in docs/DECISIONS.md.
+
+- TMDB: primary source. Server-side credentials only.
+  - Rate limit: roughly 40 requests per second (the old 40 per 10 seconds limit was removed in
+    2019). TMDB sends no remaining-requests headers, so do not count requests; handle HTTP 429
+    with backoff and retry.
+  - Caching: TMDB data may be cached for at most 6 months, and all of it (including cache) must be
+    deleted if API access ends.
+  - Attribution: show the TMDB logo (less prominent than our own branding) and this exact notice
+    in an About/Credits section: "This product uses the TMDB API but is not endorsed or certified
+    by TMDB."
+  - Watch providers: the JustWatch credit is mandatory wherever streaming availability is shown
+    (TMDB may revoke access otherwise).
+  - Genres: there is no Anime genre. Rule: anime = Animation genre plus Japanese original language.
+  - Movie and TV genre IDs differ, so store mood-to-genre mappings separately for each media type.
+  - Runtime: use per-episode runtimes, not the show-level runtime (often empty).
+  - Release dates: movie details give one main date, not the UK one. The UK release date needs a
+    separate call (release dates endpoint).
 - TVmaze: schedules and upcoming episodes. Keyless, at least 20 calls per 10 seconds per IP.
   Data is CC BY-SA 4.0, so attribution to TVmaze is required.
+  - Broadcast and web/streaming schedules are separate endpoints; the calendar needs both.
+  - Streaming episode times are unreliable (empty or placeholder), so show dates only.
 - Project is non-commercial. Do not add monetisation or ads.
 
 ## Security rules

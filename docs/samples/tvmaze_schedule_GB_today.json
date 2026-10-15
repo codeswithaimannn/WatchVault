@@ -1,0 +1,300 @@
+{
+  "_request": "https://api.tvmaze.com/schedule?country=GB&date=2026-10-15",
+  "_fetched_on": "2026-10-15",
+  "response": [
+    {
+      "id": 3783711,
+      "url": "https://www.tvmaze.com/episodes/3783711/eastenders-2026-10-15-15102026",
+      "name": "15/10/2026",
+      "season": 2026,
+      "number": 165,
+      "type": "regular",
+      "airdate": "2026-10-15",
+      "airtime": "06:00",
+      "airstamp": "2026-10-15T05:00:00+00:00",
+      "runtime": 29,
+      "rating": {
+        "average": null
+      },
+      "image": null,
+      "summary": "<p>Kat and Alfie's relationship hangs in the balance. A desperate search gets under way.</p>",
+      "show": {
+        "id": 793,
+        "url": "https://www.tvmaze.com/shows/793/eastenders",
+        "name": "EastEnders",
+        "type": "Scripted",
+        "language": "English",
+        "genres": [
+          "Drama"
+        ],
+        "status": "Running",
+        "runtime": null,
+        "averageRuntime": 30,
+        "premiered": "1985-02-19",
+        "ended": null,
+        "officialSite": "http://www.bbc.co.uk/programmes/b006m86d",
+        "schedule": {
+          "time": "06:00",
+          "days": [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            {
+              "_trimmed": "1 more items removed (original length 4)"
+            }
+          ]
+        },
+        "rating": {
+          "average": 6.8
+        },
+        "weight": 98,
+        "network": null,
+        "webChannel": {
+          "id": 26,
+          "name": "BBC iPlayer",
+          "country": {
+            "name": "United Kingdom",
+            "code": "GB",
+            "timezone": "Europe/London"
+          },
+          "officialSite": "https://www.bbc.co.uk/iplayer"
+        },
+        "dvdCountry": null,
+        "externals": {
+          "tvrage": 3418,
+          "thetvdb": 71753,
+          "imdb": "tt0088512"
+        },
+        "image": {
+          "medium": "https://static.tvmaze.com/uploads/images/medium_portrait/6/15519.jpg",
+          "original": "https://static.tvmaze.com/uploads/images/original_untouched/6/15519.jpg"
+        },
+        "summary": "<p>Set in the East End of London, the show focuses on the tensions between love and family with stories ranging from hard-hitting social issues, to personal, human tragedies. And there's plenty of funny moments too. <br /><br />Classic characters old and new across thousands of episodes have shared a drink in The Queen Vic, shed tears of despair or joy, sat on Arthur's bench in the Square... and at some point or other they probably crossed paths with Ian Beale.</p>",
+        "updated": 1792070485,
+        "_links": {
+          "self": {
+            "href": "https://api.tvmaze.com/shows/793"
+          },
+          "previousepisode": {
+            "href": "https://api.tvmaze.com/episodes/3783711",
+            "name": "15/10/2026"
+          },
+          "nextepisode": {
+            "href": "https://api.tvmaze.com/episodes/3783712",
+            "name": "19/10/2026"
+          }
+        }
+      },
+      "_links": {
+        "self": {
+          "href": "https://api.tvmaze.com/episodes/3783711"
+        },
+        "show": {
+          "href": "https://api.tvmaze.com/shows/793",
+          "name": "EastEnders"
+        }
+      }
+    },
+    {
+      "id": 3782310,
+      "url": "https://www.tvmaze.com/episodes/3782310/emmerdale-55x190-thursday-15th-october",
+      "name": "Thursday 15th October",
+      "season": 55,
+      "number": 190,
+      "type": "regular",
+      "airdate": "2026-10-15",
+      "airtime": "07:00",
+      "airstamp": "2026-10-15T06:00:00+00:00",
+      "runtime": 22,
+      "rating": {
+        "average": null
+      },
+      "image": {
+        "medium": "https://static.tvmaze.com/uploads/images/medium_landscape/644/1612205.jpg",
+        "original": "https://static.tvmaze.com/uploads/images/original_untouched/644/1612205.jpg"
+      },
+      "summary": "<p>Tensions remain high at the Dingles' house, while secrets are revealed during a drinking game and Cain is suspicious of Sadie's motives.</p>",
+      "show": {
+        "id": 2548,
+        "url": "https://www.tvmaze.com/shows/2548/emmerdale",
+        "name": "Emmerdale",
+        "type": "Scripted",
+        "language": "English",
+        "genres": [
+          "Drama"
+        ],
+        "status": "Running",
+        "runtime": null,
+        "averageRuntime": 31,
+        "premiered": "1972-10-16",
+        "ended": null,
+        "officialSite": "https://www.itv.com/emmerdale",
+        "schedule": {
+          "time": "07:00",
+          "days": [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            {
+              "_trimmed": "2 more items removed (original length 5)"
+            }
+          ]
+        },
+        "rating": {
+          "average": 7.3
+        },
+        "weight": 96,
+        "network": {
+          "id": 35,
+          "name": "ITV1",
+          "country": {
+            "name": "United Kingdom",
+            "code": "GB",
+            "timezone": "Europe/London"
+          },
+          "officialSite": "https://www.itv.com/"
+        },
+        "webChannel": {
+          "id": 54,
+          "name": "ITVX",
+          "country": {
+            "name": "United Kingdom",
+            "code": "GB",
+            "timezone": "Europe/London"
+          },
+          "officialSite": "https://www.itvx.com/"
+        },
+        "dvdCountry": null,
+        "externals": {
+          "tvrage": 3440,
+          "thetvdb": 77715,
+          "imdb": "tt0068069"
+        },
+        "image": {
+          "medium": "https://static.tvmaze.com/uploads/images/medium_portrait/598/1495905.jpg",
+          "original": "https://static.tvmaze.com/uploads/images/original_untouched/598/1495905.jpg"
+        },
+        "summary": "<p><b>Emmerdale</b> is a British soap focusing on the lives of several families and locals living around an estate, a farm and the nearby village in the Yorkshire Dales. It is the second longest British soap in television history since airing its first episode on ITV in 1972, as 'Emmerdale Farm', the show was renamed in 1989.</p>",
+        "updated": 1792017149,
+        "_links": {
+          "self": {
+            "href": "https://api.tvmaze.com/shows/2548"
+          },
+          "previousepisode": {
+            "href": "https://api.tvmaze.com/episodes/3782310",
+            "name": "Thursday 15th October"
+          },
+          "nextepisode": {
+            "href": "https://api.tvmaze.com/episodes/3782311",
+            "name": "Friday 16th October"
+          }
+        }
+      },
+      "_links": {
+        "self": {
+          "href": "https://api.tvmaze.com/episodes/3782310"
+        },
+        "show": {
+          "href": "https://api.tvmaze.com/shows/2548",
+          "name": "Emmerdale"
+        }
+      }
+    },
+    {
+      "id": 3783695,
+      "url": "https://www.tvmaze.com/episodes/3783695/coronation-street-67x190-thu-15th-oct",
+      "name": "Thu 15th Oct",
+      "season": 67,
+      "number": 190,
+      "type": "regular",
+      "airdate": "2026-10-15",
+      "airtime": "07:00",
+      "airstamp": "2026-10-15T06:00:00+00:00",
+      "runtime": 22,
+      "rating": {
+        "average": null
+      },
+      "image": null,
+      "summary": "<p>Tyrone convinces Todd to testify in court, Bethany urges Kit to show up for Sarah and Debbie sends Abi to spy on Ronnie. Toyah calls out Leanne's dastardly sabotage plot.</p>",
+      "show": {
+        "id": 4139,
+        "url": "https://www.tvmaze.com/shows/4139/coronation-street",
+        "name": "Coronation Street",
+        "type": "Scripted",
+        "language": "English",
+        "genres": [
+          "Drama"
+        ],
+        "status": "Running",
+        "runtime": null,
+        "averageRuntime": 28,
+        "premiered": "1960-12-09",
+        "ended": null,
+        "officialSite": "https://www.itv.com/watch/coronation-street/1a0694",
+        "schedule": {
+          "time": "07:00",
+          "days": [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            {
+              "_trimmed": "2 more items removed (original length 5)"
+            }
+          ]
+        },
+        "rating": {
+          "average": 7.5
+        },
+        "weight": 97,
+        "network": null,
+        "webChannel": {
+          "id": 54,
+          "name": "ITVX",
+          "country": {
+            "name": "United Kingdom",
+            "code": "GB",
+            "timezone": "Europe/London"
+          },
+          "officialSite": "https://www.itvx.com/"
+        },
+        "dvdCountry": null,
+        "externals": {
+          "tvrage": 3140,
+          "thetvdb": 71565,
+          "imdb": "tt0053494"
+        },
+        "image": {
+          "medium": "https://static.tvmaze.com/uploads/images/medium_portrait/598/1495734.jpg",
+          "original": "https://static.tvmaze.com/uploads/images/original_untouched/598/1495734.jpg"
+        },
+        "summary": "<p>Step onto the cobbles for all the drama, secrets and unforgettable moments from the world's longest running TV soap.</p>",
+        "updated": 1792016105,
+        "_links": {
+          "self": {
+            "href": "https://api.tvmaze.com/shows/4139"
+          },
+          "previousepisode": {
+            "href": "https://api.tvmaze.com/episodes/3783695",
+            "name": "Thu 15th Oct"
+          },
+          "nextepisode": {
+            "href": "https://api.tvmaze.com/episodes/3783696",
+            "name": "Fri 16th Oct"
+          }
+        }
+      },
+      "_links": {
+        "self": {
+          "href": "https://api.tvmaze.com/episodes/3783695"
+        },
+        "show": {
+          "href": "https://api.tvmaze.com/shows/4139",
+          "name": "Coronation Street"
+        }
+      }
+    },
+    {
+      "_trimmed": "27 more items removed (original length 30)"
+    }
+  ]
+}

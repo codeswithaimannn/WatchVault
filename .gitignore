@@ -6,3 +6,8 @@ dist/
 .idea/
 .vscode/
 *.log
+
+# TMDB sample responses: kept locally only (TMDB terms: no caching >6 months,
+# no sublicensing/redistribution of TMDB Content). TVmaze samples are committed.
+docs/samples/tmdb_*.json
+docs/samples/_call_log.json
