@@ -7,6 +7,7 @@ import { HomePage } from './pages/HomePage'
 import { LoginPage } from './pages/LoginPage'
 import { NotFoundPage } from './pages/NotFoundPage'
 import { RegisterPage } from './pages/RegisterPage'
+import { SearchPage } from './pages/SearchPage'
 
 /** All routes. The router itself is created in main.tsx (and a test router in tests). */
 export function App() {
@@ -24,6 +25,7 @@ export function App() {
       <Route element={<Layout />}>
         <Route element={<RequireAuth />}>
           <Route index element={<HomePage />} />
+          <Route path="search" element={<SearchPage />} />
         </Route>
         <Route path="*" element={<NotFoundPage />} />
       </Route>
