@@ -8,7 +8,7 @@ the owner confirms (see the working agreement in CLAUDE.md).
 | 0  | Verify APIs                               | Done        |
 | 1  | Foundation and auth                       | Done        |
 | 2  | API adapters and caching                  | Done        |
-| 3  | Search and detail pages                   | Not started |
+| 3  | Search and detail pages                   | Done        |
 | 4  | Library                                   | Not started |
 | 5  | Episode tracking                          | Not started |
 | 6  | Discovery and streaming                   | Not started |

@@ -27,7 +27,7 @@ export function AboutPage() {
           title="TMDB"
           logo={
             // Official, unmodified TMDB logo, kept smaller than our own branding (TMDB terms).
-            <img src="/tmdb-logo.svg" alt="The Movie Database (TMDB) logo" className="h-6 w-auto" />
+            <img src="/tmdb-logo.svg" alt="The Movie Database (TMDB) logo" className="h-10 w-auto" />
           }
         >
           <p>{TMDB_NOTICE}</p>
