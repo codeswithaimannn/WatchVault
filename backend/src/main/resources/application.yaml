@@ -40,6 +40,10 @@ watchvault:
     region: GB
   tvmaze:
     base-url: https://api.tvmaze.com
+  cache:
+    # Saved TMDB title details: refresh weekly; never keep longer than 180 days (TMDB terms: < 6 months).
+    title-refresh-after: 7d
+    title-max-age: 180d
   http:
     connect-timeout: 3s
     read-timeout: 5s

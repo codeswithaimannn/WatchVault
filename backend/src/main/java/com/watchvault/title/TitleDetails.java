@@ -36,6 +36,13 @@ public record TitleDetails(
 		List<SeasonSummary> seasons,
 		Instant fetchedAt) {
 
+	/** Same details, stamped with a different fetch time. */
+	public TitleDetails withFetchedAt(Instant newFetchedAt) {
+		return new TitleDetails(mediaType, tmdbId, title, originalTitle, originalLanguage, overview, tagline,
+				posterPath, backdropPath, releaseDate, ukReleaseDate, runtimeMinutes, status, genres, imdbId,
+				tvdbId, anime, seasons, newFetchedAt);
+	}
+
 	public record SeasonSummary(int seasonNumber, String name, int episodeCount, LocalDate airDate) {
 	}
 }

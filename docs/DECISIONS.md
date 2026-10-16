@@ -181,3 +181,17 @@ docs, TMDB watch-providers reference, TVmaze API docs. Re-check these if the pro
   include the token.
 - **Tests use WireMock 3.13.2** (`wiremock-standalone`, test scope only; 4.x is still beta) with
   hand-written JSON. Real TMDB responses can't be committed (TMDB terms).
+- **Two cache layers.** Caffeine (in memory) holds data that's cheap to fetch again: search 1h,
+  genres 24h, providers 6h, seasons 6h, all within TMDB's Cache-Control hints. The database
+  (`title_cache`, V3) holds title details, refreshed after 7 days. If TMDB is down, an older copy
+  is served with its real `fetchedAt`. A copy older than **180 days** is never served, and a
+  nightly job deletes such copies (TMDB terms: under 6 months).
+- **`title_cache` stores the whole `TitleDetails` as a JSON column.** Nothing queries inside it
+  yet, and fields can be promoted to real columns by a migration when a feature needs them.
+- **User data never has a foreign key to `title_cache`.** Library rows will store only
+  `media_type + tmdb_id`, because cache rows have to be deleted on a schedule.
+- **One TMDB call per title** via `append_to_response` (details + release dates, or details +
+  external ids). Watch providers stay a separate call because they change more often.
+- **UK release date** = the earliest GB cinema release (type 2 or 3). It's null when there isn't
+  one, and we never use another country's date. Checked against the live API: for Dune: Part Two
+  it gives 1 March 2024 (TMDB's main date is the 27 Feb premiere).
