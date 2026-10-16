@@ -18,7 +18,7 @@ not been walked through.
 
 ## Stack
 - Backend: Java (JDK 25 LTS), Spring Boot, Maven, Spring Data JPA, Flyway, Spring Security,
-  Resilience4j, Spring Cache (Caffeine), Spring Mail, springdoc OpenAPI
+  Spring Framework retry (RetryTemplate), Spring Cache (Caffeine), Spring Mail, springdoc OpenAPI
 - Database: MySQL
 - Frontend: React + TypeScript + Vite, Tailwind CSS, TanStack Query, React Router,
   React Hook Form + Zod, Recharts

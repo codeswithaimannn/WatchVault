@@ -117,6 +117,14 @@
 			<artifactId>spring-boot-starter-webmvc-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<!-- Fake HTTP server for TMDB/TVmaze adapter tests. "standalone" bundles (and renames) its own
+		     Jetty, so it cannot clash with Spring Boot's server libraries. Latest stable (4.x is beta). -->
+		<dependency>
+			<groupId>org.wiremock</groupId>
+			<artifactId>wiremock-standalone</artifactId>
+			<version>3.13.2</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<build>

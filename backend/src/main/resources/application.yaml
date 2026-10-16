@@ -31,6 +31,22 @@ watchvault:
     max-failed-logins: 5
     failed-login-window: 15m
 
+  # External APIs. Only the backend calls these; the browser never does.
+  tmdb:
+    base-url: https://api.themoviedb.org/3
+    # TMDB "API Read Access Token" (v4 bearer token). Env var only, never committed.
+    read-token: ${TMDB_READ_TOKEN}
+    language: en-GB
+    region: GB
+  tvmaze:
+    base-url: https://api.tvmaze.com
+  http:
+    connect-timeout: 3s
+    read-timeout: 5s
+    # A user is waiting, so retry briefly; if it still fails we fall back to saved data.
+    max-retries: 2
+    retry-delay: 300ms
+
 management:
   endpoints:
     web:

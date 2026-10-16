@@ -164,3 +164,20 @@ docs, TMDB watch-providers reference, TVmaze API docs. Re-check these if the pro
   of their email before the @). It's user-written text, so React's escaping makes it safe to show.
 - **Dependency versions:** React 19, React Router 8, TanStack Query 5, Zod 4, Tailwind 4, Vite 8,
   Vitest 5.
+
+## M2: External API adapters (2026-10-16)
+
+- **Retries use Spring Framework 7's built-in `RetryTemplate`, not Resilience4j** (the owner's
+  choice). It needs no new dependency and carries no Spring Boot 4 compatibility risk. It retries
+  429, 5xx, timeouts and connection failures (2 retries, 300ms then 600ms). It doesn't retry 404 or
+  other 4xx, because asking again gives the same answer. Instead of a circuit breaker, we serve the
+  saved copy from the database when an API stays down.
+- **`Retry-After` is not read.** Spring's retry uses a fixed backoff schedule, and TMDB didn't send
+  the header in the M0 samples. Waits are kept short because a user is waiting on the request.
+- **HTTP client:** `RestClient` on Java's built-in `HttpClient`, with a 3s connect timeout, a 5s
+  read timeout, and redirects followed (TVmaze lookups answer with a 301).
+- **Errors:** a missing item becomes a 404 ("We couldn't find that title."). Anything else becomes
+  a 503 ("TMDB is not responding right now…"). The details go to the server log only, and never
+  include the token.
+- **Tests use WireMock 3.13.2** (`wiremock-standalone`, test scope only; 4.x is still beta) with
+  hand-written JSON. Real TMDB responses can't be committed (TMDB terms).

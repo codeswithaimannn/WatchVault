@@ -10,3 +10,9 @@ watchvault:
     # Test-only signing key, public on purpose: Base64 of "test-only-jwt-key-never-use-prod".
     # It signs nothing outside tests, so tests run without WATCHVAULT_JWT_SECRET.
     jwt-secret: dGVzdC1vbmx5LWp3dC1rZXktbmV2ZXItdXNlLXByb2Q=
+  # Tests never call the real APIs: adapter tests point at WireMock instead.
+  tmdb:
+    read-token: test-only-token
+    base-url: http://localhost:1/unused
+  tvmaze:
+    base-url: http://localhost:1/unused
