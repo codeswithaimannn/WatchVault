@@ -4,3 +4,9 @@
 spring:
   datasource:
     url: jdbc:mysql://localhost:3306/watchvault_test?connectionTimeZone=UTC&forceConnectionTimeZoneToSession=true
+
+watchvault:
+  auth:
+    # Test-only signing key, public on purpose: Base64 of "test-only-jwt-key-never-use-prod".
+    # It signs nothing outside tests, so tests run without WATCHVAULT_JWT_SECRET.
+    jwt-secret: dGVzdC1vbmx5LWp3dC1rZXktbmV2ZXItdXNlLXByb2Q=

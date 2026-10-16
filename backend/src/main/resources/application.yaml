@@ -21,6 +21,16 @@ spring:
         jdbc:
           time_zone: UTC
 
+watchvault:
+  auth:
+    # No default: the app refuses to start without it (see backend/.env.example).
+    jwt-secret: ${WATCHVAULT_JWT_SECRET}
+    token-lifetime: 8h
+    cookie-name: watchvault_token
+    secure-cookie: true
+    max-failed-logins: 5
+    failed-login-window: 15m
+
 management:
   endpoints:
     web:
