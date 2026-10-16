@@ -17,12 +17,12 @@ export function AuthLayout() {
             <p className="text-4xl leading-tight font-semibold tracking-tight">
               Every film. Every episode. <span className="text-brand-gradient">One vault.</span>
             </p>
-            <p className="mt-4 text-zinc-400">
+            <p className="mt-4 text-slate-400">
               Track movies, series and anime, see where they are streaming in the UK, and pick up exactly
               where you left off.
             </p>
           </div>
-          <p className="text-xs text-zinc-500">WatchVault · a personal entertainment hub</p>
+          <p className="text-xs text-slate-500">WatchVault · a personal entertainment hub</p>
         </section>
 
         {/* Right: the form. */}
