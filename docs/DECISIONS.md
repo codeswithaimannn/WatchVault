@@ -195,3 +195,24 @@ docs, TMDB watch-providers reference, TVmaze API docs. Re-check these if the pro
 - **UK release date** = the earliest GB cinema release (type 2 or 3). It's null when there isn't
   one, and we never use another country's date. Checked against the live API: for Dune: Part Two
   it gives 1 March 2024 (TMDB's main date is the 27 Feb premiere).
+
+## M4: Library (2026-10-16)
+
+- **`library_entries` (V4) stores only user data plus `media_type + tmdb_id`.** Titles and posters
+  come from `title_cache`, so no TMDB data is ever kept in user tables (TMDB's 6-month rule). If a
+  title isn't cached and TMDB is down, the entry still shows with "Details unavailable right now".
+- **Statuses:** Plan to watch, Watching, Completed, On hold, Dropped. **Ratings are whole numbers
+  1-10** (the owner's choice; it matches TMDB's scale and is easy to average). A CHECK constraint
+  enforces both in the database too.
+- **`completed_on`** is set on the UK calendar day the entry becomes Completed, kept while it stays
+  Completed, and cleared if it moves to another status. Statistics will rely on it.
+- **Entries are addressed by title (`/api/library/movie/123`), never by a database id**, and the
+  owner always comes from the token. There's nothing in a URL that could point at someone else's
+  data. Tests check that user A can't see or change user B's library.
+- **The list endpoint returns the whole library**, and the browser filters and counts it (a
+  personal library is small). Title info is read from the cache in one query. At most 20 missing
+  titles are fetched per request, and fetching stops at the first sign that TMDB is down.
+- **No database transaction stays open while calling TMDB.** `LibraryService` isn't
+  `@Transactional`, and each repository call commits on its own.
+- **Validation errors have the same shape everywhere.** `HandlerMethodValidationException` (raised
+  when Spring validates path params and body together) now also returns the `errors` map.
