@@ -5,6 +5,7 @@ import { AuthLayout } from './components/AuthLayout'
 import { Layout } from './components/Layout'
 import { AboutPage } from './pages/AboutPage'
 import { HomePage } from './pages/HomePage'
+import { LibraryPage } from './pages/LibraryPage'
 import { LoginPage } from './pages/LoginPage'
 import { NotFoundPage } from './pages/NotFoundPage'
 import { RegisterPage } from './pages/RegisterPage'
@@ -27,6 +28,7 @@ export function App() {
       <Route element={<Layout />}>
         <Route element={<RequireAuth />}>
           <Route index element={<HomePage />} />
+          <Route path="library" element={<LibraryPage />} />
           <Route path="search" element={<SearchPage />} />
           <Route path="title/:mediaType/:tmdbId" element={<TitlePage />} />
         </Route>

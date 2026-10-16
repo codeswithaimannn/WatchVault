@@ -1,4 +1,4 @@
-import { Link, Outlet, useNavigate, useSearchParams } from 'react-router'
+import { Link, NavLink, Outlet, useNavigate, useSearchParams } from 'react-router'
 
 import { errorMessage } from '../api/client'
 import { useCurrentUser, useLogout } from '../auth/authHooks'
@@ -18,6 +18,14 @@ export function Layout() {
           <Logo />
           {user && (
             <>
+              <NavLink
+                to="/library"
+                className={({ isActive }) =>
+                  `text-sm transition ${isActive ? 'text-white' : 'text-slate-400 hover:text-slate-200'}`
+                }
+              >
+                Library
+              </NavLink>
               {/* order: on phones the search bar drops to its own full-width row */}
               <div className="order-last flex w-full justify-center sm:order-none sm:w-auto sm:flex-1">
                 <SearchBar key={currentQuery} initialQuery={currentQuery} />
