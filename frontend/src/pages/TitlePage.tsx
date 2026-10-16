@@ -4,6 +4,7 @@ import { Link, useParams } from 'react-router'
 import { ApiError, errorMessage } from '../api/client'
 import { toPath, type MediaPath, type TitleDetails } from '../api/titles'
 import { StatusMessage } from '../components/StatusMessage'
+import { LibraryPanel } from '../library/LibraryPanel'
 import { formatDate, formatRuntime, languageName, yearOf } from '../lib/format'
 import { backdropUrl } from '../lib/tmdbImages'
 import { MediaBadge } from '../titles/MediaBadge'
@@ -98,6 +99,7 @@ function TitleContent({ title }: { title: TitleDetails }) {
           <p className="leading-relaxed text-slate-300">{title.overview || 'No overview available.'}</p>
         </section>
         <div className="flex flex-col gap-10">
+          <LibraryPanel media={toPath(title.mediaType)} tmdbId={title.tmdbId} />
           <Facts title={title} />
           <WatchProvidersSection media={toPath(title.mediaType)} tmdbId={title.tmdbId} />
         </div>
