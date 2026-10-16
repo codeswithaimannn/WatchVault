@@ -6,7 +6,7 @@ the owner confirms (see the working agreement in CLAUDE.md).
 | #  | Milestone                                 | Status      |
 |----|-------------------------------------------|-------------|
 | 0  | Verify APIs                               | Done        |
-| 1  | Foundation and auth                       | Not started |
+| 1  | Foundation and auth                       | Done        |
 | 2  | API adapters and caching                  | Not started |
 | 3  | Search and detail pages                   | Not started |
 | 4  | Library                                   | Not started |
