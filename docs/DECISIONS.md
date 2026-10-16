@@ -140,3 +140,21 @@ docs, TMDB watch-providers reference, TVmaze API docs. Re-check these if the pro
   or body. Tests prove that user A's changes don't affect user B.
 - **Errors** use RFC 9457 problem details. Validation errors list each field, and unexpected errors
   return a generic 500 with the details only in the server log.
+
+## M1: Frontend foundation (2026-10-16)
+
+- **The Vite dev proxy forwards `/api` to `localhost:8080`.** The browser only ever talks to one
+  origin, so the httpOnly cookie and CSRF token work without CORS. Production will serve both
+  from one origin too (deploy milestone).
+- **"Who am I" comes from `GET /api/users/me`,** cached by TanStack Query. JavaScript can't read
+  the httpOnly cookie, so the server is the only source of truth. A 401 or 404 means "logged out".
+- **One fetch wrapper (`api/client.ts`)** adds the CSRF header and turns problem-details errors
+  into a typed `ApiError`. Only safe server messages are shown to the user.
+- **Route guards:** `RequireAuth` sends visitors to `/login`, and `GuestOnly` is the single place
+  that redirects after login. Redirects go back to the page that asked for login, but only to
+  same-site paths (so links can't redirect to another website).
+- **Forms use React Hook Form + Zod,** with rules mirroring the backend for quick feedback. The
+  backend stays the authority. Server field errors are shown under the matching field.
+- **Style:** dark cinematic theme (zinc-950 background, amber accent), one theme only for now.
+- **Dependency versions:** React 19, React Router 8, TanStack Query 5, Zod 4, Tailwind 4, Vite 8,
+  Vitest 5.
