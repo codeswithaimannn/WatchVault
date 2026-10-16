@@ -3,8 +3,13 @@ package com.watchvault.title;
 import java.time.Clock;
 import java.time.Duration;
 import java.time.Instant;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +18,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.watchvault.external.ExternalApiUnavailableException;
+import com.watchvault.external.ExternalResourceNotFoundException;
 import com.watchvault.external.tmdb.TmdbService;
 import com.watchvault.media.MediaType;
 
@@ -27,6 +33,9 @@ import tools.jackson.databind.json.JsonMapper;
 public class TitleCatalogService {
 
 	private static final Logger log = LoggerFactory.getLogger(TitleCatalogService.class);
+
+	/** Caps TMDB calls when building one list, so a large library can't make a page hang. */
+	static final int MAX_FETCHES_PER_LIST = 20;
 
 	private final TmdbService tmdb;
 	private final CachedTitleRepository cachedTitles;
@@ -87,6 +96,50 @@ public class TitleCatalogService {
 				return fromJson(saved.get());
 			}
 			throw e;
+		}
+	}
+
+	/**
+	 * Details for a whole list (e.g. a library): one database query for the saved copies, which are
+	 * used even if more than a week old (lists must be fast and work while TMDB is down).
+	 * Missing titles are fetched, at most {@value #MAX_FETCHES_PER_LIST} per call, and fetching stops
+	 * at the first sign TMDB is down. Titles we couldn't get are simply absent from the result.
+	 */
+	public Map<TitleKey, TitleDetails> detailsForList(Collection<TitleKey> keys) {
+		Set<TitleKey> wanted = Set.copyOf(keys);
+		Map<TitleKey, TitleDetails> found = new HashMap<>();
+		if (wanted.isEmpty()) {
+			return found;
+		}
+		Instant now = clock.instant();
+		Set<Integer> tmdbIds = wanted.stream().map(TitleKey::tmdbId).collect(Collectors.toSet());
+		for (CachedTitle copy : cachedTitles.findByTmdbIdIn(tmdbIds)) {
+			TitleKey key = new TitleKey(copy.getMediaType(), copy.getTmdbId());
+			if (wanted.contains(key) && !isOlderThan(copy, cacheProperties.titleMaxAge(), now)) {
+				found.put(key, fromJson(copy));
+			}
+		}
+		fetchMissing(wanted, found);
+		return found;
+	}
+
+	private void fetchMissing(Set<TitleKey> wanted, Map<TitleKey, TitleDetails> found) {
+		int fetched = 0;
+		for (TitleKey key : wanted) {
+			if (found.containsKey(key)) {
+				continue;
+			}
+			if (fetched == MAX_FETCHES_PER_LIST) {
+				return; // the rest are filled in on later page loads
+			}
+			fetched++;
+			try {
+				found.put(key, details(key.mediaType(), key.tmdbId()));
+			} catch (ExternalResourceNotFoundException e) {
+				log.info("Title {} no longer exists on TMDB", key);
+			} catch (ExternalApiUnavailableException e) {
+				return; // TMDB is down: don't make the user wait for every remaining title
+			}
 		}
 	}
 

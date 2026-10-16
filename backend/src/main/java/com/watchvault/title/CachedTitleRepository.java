@@ -1,6 +1,8 @@
 package com.watchvault.title;
 
 import java.time.Instant;
+import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,6 +15,9 @@ import com.watchvault.media.MediaType;
 public interface CachedTitleRepository extends JpaRepository<CachedTitle, Long> {
 
 	Optional<CachedTitle> findByMediaTypeAndTmdbId(MediaType mediaType, int tmdbId);
+
+	/** One query for a whole list of titles; the caller filters on media type. */
+	List<CachedTitle> findByTmdbIdIn(Collection<Integer> tmdbIds);
 
 	/** One DELETE statement (not one per row). Returns how many rows were removed. */
 	@Modifying
