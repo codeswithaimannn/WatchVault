@@ -2,13 +2,14 @@ import { useState } from 'react'
 import { Link, useParams } from 'react-router'
 
 import { ApiError, errorMessage } from '../api/client'
-import type { MediaPath, TitleDetails } from '../api/titles'
+import { toPath, type MediaPath, type TitleDetails } from '../api/titles'
 import { StatusMessage } from '../components/StatusMessage'
 import { formatDate, formatRuntime, languageName, yearOf } from '../lib/format'
 import { backdropUrl } from '../lib/tmdbImages'
 import { MediaBadge } from '../titles/MediaBadge'
 import { PosterImage } from '../titles/PosterImage'
 import { SeasonList } from '../titles/SeasonList'
+import { WatchProvidersSection } from '../titles/WatchProvidersSection'
 import { useTitle } from '../titles/titleHooks'
 import { NotFoundPage } from './NotFoundPage'
 
@@ -96,7 +97,10 @@ function TitleContent({ title }: { title: TitleDetails }) {
           </h2>
           <p className="leading-relaxed text-slate-300">{title.overview || 'No overview available.'}</p>
         </section>
-        <Facts title={title} />
+        <div className="flex flex-col gap-10">
+          <Facts title={title} />
+          <WatchProvidersSection media={toPath(title.mediaType)} tmdbId={title.tmdbId} />
+        </div>
       </div>
 
       {title.mediaType === 'TV' && title.seasons.length > 0 && (

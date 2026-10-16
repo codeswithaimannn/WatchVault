@@ -1,4 +1,4 @@
-import { Outlet, useNavigate, useSearchParams } from 'react-router'
+import { Link, Outlet, useNavigate, useSearchParams } from 'react-router'
 
 import { errorMessage } from '../api/client'
 import { useCurrentUser, useLogout } from '../auth/authHooks'
@@ -32,6 +32,14 @@ export function Layout() {
       <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-12">
         <Outlet />
       </main>
+      <footer className="border-t border-white/5">
+        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-2 px-4 py-5 text-xs text-slate-500">
+          <span>Film and TV data from TMDB · Schedules from TVmaze</span>
+          <Link to="/about" className="text-slate-400 hover:text-slate-200">
+            About &amp; credits
+          </Link>
+        </div>
+      </footer>
     </div>
   )
 }

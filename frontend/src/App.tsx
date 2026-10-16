@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router'
 import { GuestOnly, RequireAuth } from './auth/routeGuards'
 import { AuthLayout } from './components/AuthLayout'
 import { Layout } from './components/Layout'
+import { AboutPage } from './pages/AboutPage'
 import { HomePage } from './pages/HomePage'
 import { LoginPage } from './pages/LoginPage'
 import { NotFoundPage } from './pages/NotFoundPage'
@@ -29,6 +30,8 @@ export function App() {
           <Route path="search" element={<SearchPage />} />
           <Route path="title/:mediaType/:tmdbId" element={<TitlePage />} />
         </Route>
+        {/* Public: data credits must be reachable without an account. */}
+        <Route path="about" element={<AboutPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>

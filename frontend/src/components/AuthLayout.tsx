@@ -1,4 +1,4 @@
-import { Outlet } from 'react-router'
+import { Link, Outlet } from 'react-router'
 
 import { Logo } from './Logo'
 import { PosterWall } from './PosterWall'
@@ -22,7 +22,12 @@ export function AuthLayout() {
               where you left off.
             </p>
           </div>
-          <p className="text-xs text-slate-500">WatchVault · a personal entertainment hub</p>
+          <p className="text-xs text-slate-500">
+            WatchVault · a personal entertainment hub ·{' '}
+            <Link to="/about" className="text-slate-400 hover:text-slate-200">
+              About &amp; credits
+            </Link>
+          </p>
         </section>
 
         {/* Right: the form. */}
@@ -31,6 +36,9 @@ export function AuthLayout() {
             <Logo />
           </div>
           <Outlet />
+          <Link to="/about" className="text-xs text-slate-500 hover:text-slate-300 lg:hidden">
+            About &amp; credits
+          </Link>
         </section>
       </div>
     </div>
