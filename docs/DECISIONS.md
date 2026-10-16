@@ -108,3 +108,35 @@ docs, TMDB watch-providers reference, TVmaze API docs. Re-check these if the pro
 - **Tests use `watchvault_test` only**, via `src/test/resources/config/application.yaml`. It is on
   the test classpath only and overrides just the URL, so every test (Maven or IDE) is isolated
   without needing a profile annotation. A test asserts `DATABASE() = 'watchvault_test'`.
+
+## M1: Authentication (2026-10-16)
+
+- **JWT in an httpOnly cookie**, signed with HS256 using `WATCHVAULT_JWT_SECRET` (at least 32 bytes).
+  The app both issues and checks tokens, so one shared secret is enough. Spring Security's
+  resource server checks the signature, expiry and issuer on every request. The claims are the
+  user id (`sub`) and `roles`, never the email.
+- **8-hour lifetime and no refresh tokens.** JWTs can't be revoked before they expire, so logout
+  only deletes the cookie, and a short lifetime limits the damage from a stolen token. Refresh
+  tokens would add a lot of complexity for little gain here.
+- **Cookie settings:** `HttpOnly` stops page JavaScript reading the token (XSS), `Secure` sends it
+  over HTTPS only (browsers also allow it on localhost), and `SameSite=Lax` keeps it off
+  cross-site form posts.
+- **CSRF stays on** (`csrf.spa()`), because the browser sends the cookie automatically. It works
+  as a double-submit check: the frontend calls `GET /api/auth/csrf` once, then copies the
+  `XSRF-TOKEN` cookie into an `X-XSRF-TOKEN` header. Tests send the cookie and header themselves
+  (`TestCsrf`) instead of using Spring's `csrf()` helper, which changes the shared test context.
+- **The token is not read on `/api/auth/**`**, so an expired cookie can't block logging in again.
+- **Passwords:** 12 to 72 characters, with length preferred over complexity rules (NCSC/NIST).
+  BCrypt reads at most 72 bytes, so longer input is rejected rather than silently cut short.
+  Hashes are stored as `{bcrypt}...` so the algorithm can change later.
+- **Login gives the same answer for an unknown email and a wrong password**, and both take the
+  same time (a dummy hash is checked when the email is unknown). Registration does reveal that an
+  email is taken (409), which is an accepted trade-off for usable sign-up.
+- **Rate limit:** 5 failed logins per IP within 15 minutes, then 429, even with the right password.
+  It counts per IP rather than per email, so nobody can lock someone else out. It lives in memory
+  (Caffeine), which is fine for one server. Behind a proxy it will need `X-Forwarded-For` handling
+  (deploy milestone).
+- **Ownership:** every `/me` endpoint takes the user id from the verified token, never from the URL
+  or body. Tests prove that user A's changes don't affect user B.
+- **Errors** use RFC 9457 problem details. Validation errors list each field, and unexpected errors
+  return a generic 500 with the details only in the server log.
