@@ -2,7 +2,10 @@ import { Link, useSearchParams } from 'react-router'
 
 import { errorMessage } from '../api/client'
 import { StatusMessage } from '../components/StatusMessage'
+import { toPath } from '../api/titles'
 import { LibraryCard } from '../library/LibraryCard'
+import { LibraryEditor } from '../library/LibraryEditor'
+import { editKey, parseEditKey } from '../library/editKey'
 import {
   countByStatus,
   filterAndSort,
@@ -48,6 +51,13 @@ export function LibraryPage() {
     setParams(next, { replace: true })
   }
 
+  /** Link to the current page (same filters) with the edit panel open. */
+  const hrefWithEdit = (key: string) => {
+    const next = new URLSearchParams(params)
+    next.set('edit', key)
+    return `/library?${next.toString()}`
+  }
+
   if (library.isPending) {
     return <StatusMessage>Loading your library…</StatusMessage>
   }
@@ -59,9 +69,22 @@ export function LibraryPage() {
   const counts = countByStatus(entries, filters.type)
   const shown = filterAndSort(entries, filters)
 
+  // The edit panel is opened by ?edit=movie-1001 (cards link to it, and so does the title page).
+  const editing = parseEditKey(params.get('edit'))
+  const editingEntry = editing
+    ? entries.find((e) => toPath(e.mediaType) === editing.media && e.tmdbId === editing.tmdbId)
+    : undefined
+  const closeEditor = () => {
+    const next = new URLSearchParams(params)
+    next.delete('edit')
+    setParams(next, { replace: true })
+  }
+
   return (
     <section className="flex flex-col gap-6">
       <h1 className="text-3xl font-semibold tracking-tight">Your library</h1>
+      {/* key: a fresh form for each entry */}
+      {editingEntry && <LibraryEditor key={editKey(editingEntry.mediaType, editingEntry.tmdbId)} entry={editingEntry} onClose={closeEditor} />}
 
       {entries.length === 0 ? (
         <div className="rounded-2xl border border-dashed border-white/10 px-6 py-16 text-center">
@@ -125,7 +148,7 @@ export function LibraryPage() {
             <ul className="grid grid-cols-2 gap-x-3 gap-y-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
               {shown.map((entry) => (
                 <li key={`${entry.mediaType}-${entry.tmdbId}`}>
-                  <LibraryCard entry={entry} />
+                  <LibraryCard entry={entry} href={hrefWithEdit(editKey(entry.mediaType, entry.tmdbId))} />
                 </li>
               ))}
             </ul>

@@ -32,6 +32,17 @@
       radial-gradient(50rem 26rem at 95% -5%, rgb(20 184 166 / 0.07), transparent 60%);
     background-attachment: fixed;
   }
+
+  /* Native dropdown lists are drawn by the browser; without this they can come out
+     light-on-white and unreadable on Windows. */
+  select {
+    color-scheme: dark;
+  }
+
+  option {
+    background-color: #0f172a;
+    color: #e2e8f0;
+  }
 }
 
 @utility bg-brand-gradient {

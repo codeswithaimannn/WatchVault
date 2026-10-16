@@ -4,6 +4,7 @@ import type { LibraryEntry } from '../api/library'
 import { errorMessage } from '../api/client'
 import { useCurrentUser } from '../auth/authHooks'
 import { LibraryCard } from '../library/LibraryCard'
+import { editHref } from '../library/editKey'
 import { countByStatus } from '../library/filters'
 import { useLibrary } from '../library/libraryHooks'
 import { LIBRARY_STATUSES } from '../library/statuses'
@@ -72,7 +73,7 @@ function LibrarySummary({ entries }: { entries: LibraryEntry[] }) {
           <ul className="grid grid-cols-2 gap-x-3 gap-y-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
             {watching.map((entry) => (
               <li key={`${entry.mediaType}-${entry.tmdbId}`}>
-                <LibraryCard entry={entry} />
+                <LibraryCard entry={entry} href={editHref(entry.mediaType, entry.tmdbId)} />
               </li>
             ))}
           </ul>

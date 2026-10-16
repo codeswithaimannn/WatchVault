@@ -1,19 +1,22 @@
 import { Link } from 'react-router'
 
 import type { LibraryEntry } from '../api/library'
-import { toPath } from '../api/titles'
 import { yearOf } from '../lib/format'
 import { MediaBadge } from '../titles/MediaBadge'
 import { PosterImage } from '../titles/PosterImage'
 import { statusLabel } from './statuses'
 
-/** One library entry. Still shows the user's own data when the title details are unavailable. */
-export function LibraryCard({ entry }: { entry: LibraryEntry }) {
+/**
+ * One library entry; opens its edit panel (href). Still shows the user's own data when the title
+ * details are unavailable.
+ */
+export function LibraryCard({ entry, href }: { entry: LibraryEntry; href: string }) {
   const name = entry.title?.title ?? 'Details unavailable right now'
 
   return (
     <Link
-      to={`/title/${toPath(entry.mediaType)}/${entry.tmdbId}`}
+      to={href}
+      aria-label={`Edit ${name} in your library`}
       className="group flex flex-col gap-2.5 rounded-xl p-1.5 transition hover:bg-white/5 focus-visible:bg-white/5 focus-visible:outline-none"
     >
       <div className="relative">
