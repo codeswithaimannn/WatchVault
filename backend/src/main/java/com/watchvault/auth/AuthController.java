@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.watchvault.user.User;
 import com.watchvault.user.UserResponse;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 
 @RestController
@@ -47,8 +48,11 @@ public class AuthController {
 	}
 
 	@PostMapping("/login")
-	public ResponseEntity<UserResponse> login(@Valid @RequestBody LoginRequest request) {
-		User user = loginService.authenticate(request.email(), request.password());
+	public ResponseEntity<UserResponse> login(@Valid @RequestBody LoginRequest request,
+			HttpServletRequest httpRequest) {
+		// Direct client IP. Behind a proxy this needs X-Forwarded-For handling (deploy milestone).
+		String clientAddress = httpRequest.getRemoteAddr();
+		User user = loginService.authenticate(request.email(), request.password(), clientAddress);
 		String token = tokenService.issueToken(user);
 		return ResponseEntity.ok()
 				.header(HttpHeaders.SET_COOKIE, authCookies.loginCookie(token).toString())

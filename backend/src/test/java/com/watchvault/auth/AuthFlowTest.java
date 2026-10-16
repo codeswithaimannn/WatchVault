@@ -151,6 +151,32 @@ class AuthFlowTest {
 				.andExpect(cookie().maxAge(COOKIE, 0));
 	}
 
+	@Test
+	void tooManyFailedLoginsBlocksEvenTheRightPassword() throws Exception {
+		register("erin@example.com", PASSWORD);
+		String attackerAddress = "203.0.113.99"; // own address, so other tests' failures don't count
+		int maxFailedLogins = 5; // watchvault.auth.max-failed-logins
+
+		for (int i = 0; i < maxFailedLogins; i++) {
+			loginFrom(attackerAddress, "erin@example.com", "wrong password!!")
+					.andExpect(status().isUnauthorized());
+		}
+
+		loginFrom(attackerAddress, "erin@example.com", PASSWORD)
+				.andExpect(status().isTooManyRequests())
+				.andExpect(jsonPath("$.detail").value("Too many failed login attempts. Please try again later."));
+	}
+
+	private ResultActions loginFrom(String clientAddress, String email, String password) throws Exception {
+		return mvc.perform(post("/api/auth/login").with(xsrf())
+				.with(request -> {
+					request.setRemoteAddr(clientAddress);
+					return request;
+				})
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(json(email, password)));
+	}
+
 	private ResultActions register(String email, String password) throws Exception {
 		return mvc.perform(post("/api/auth/register").with(xsrf())
 				.contentType(MediaType.APPLICATION_JSON)
