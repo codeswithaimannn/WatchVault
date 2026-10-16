@@ -32,6 +32,8 @@ not been walked through.
 
 ## Architecture rules
 - The browser NEVER calls TMDB or TVmaze directly. All external calls go through backend adapters.
+  Exception (owner-approved, M3): poster/backdrop/logo images load straight from TMDB's image
+  CDN (image.tmdb.org). These are plain image files, not API calls, and no token is involved.
 - External metadata is cached with a fetched_at timestamp. User data (library, ratings, progress)
   lives in our own database and must keep working if an external API is down.
 - Keep API-sourced data, user-recorded data and curated data (franchise orders, mood mapping)
