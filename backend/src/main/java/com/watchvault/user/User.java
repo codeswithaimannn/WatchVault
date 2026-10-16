@@ -25,12 +25,19 @@ import jakarta.persistence.Table;
 @Table(name = "users")
 public class User {
 
+	/** Matches users.display_name VARCHAR(50) in the V2 migration. */
+	public static final int MAX_DISPLAY_NAME_LENGTH = 50;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	@Column(nullable = false, unique = true, length = 254)
 	private String email;
+
+	/** Shown in the app ("Welcome, Sam"). User-written text: React escapes it when displayed. */
+	@Column(name = "display_name", nullable = false, length = MAX_DISPLAY_NAME_LENGTH)
+	private String displayName;
 
 	@Column(name = "password_hash", nullable = false)
 	private String passwordHash;
@@ -54,8 +61,9 @@ public class User {
 	protected User() {
 	}
 
-	public User(String email, String passwordHash) {
+	public User(String email, String displayName, String passwordHash) {
 		this.email = normalizeEmail(email);
+		this.displayName = displayName.trim();
 		this.passwordHash = passwordHash;
 		this.role = Role.USER;
 	}
@@ -71,6 +79,10 @@ public class User {
 
 	public String getEmail() {
 		return email;
+	}
+
+	public String getDisplayName() {
+		return displayName;
 	}
 
 	public String getPasswordHash() {

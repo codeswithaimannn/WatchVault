@@ -28,7 +28,7 @@ class UserRepositoryTest {
 
 	@Test
 	void savedUserCanBeFoundByEmail() {
-		users.saveAndFlush(new User("alice@example.com", HASH));
+		users.saveAndFlush(new User("alice@example.com", "Test User", HASH));
 
 		User found = users.findByEmail("alice@example.com").orElseThrow();
 
@@ -40,22 +40,22 @@ class UserRepositoryTest {
 
 	@Test
 	void emailIsTrimmedAndLowercased() {
-		User saved = users.saveAndFlush(new User("  Bob@Example.COM ", HASH));
+		User saved = users.saveAndFlush(new User("  Bob@Example.COM ", "Test User", HASH));
 
 		assertThat(saved.getEmail()).isEqualTo("bob@example.com");
 	}
 
 	@Test
 	void duplicateEmailIsRejectedByTheDatabase() {
-		users.saveAndFlush(new User("carol@example.com", HASH));
+		users.saveAndFlush(new User("carol@example.com", "Test User", HASH));
 
-		assertThatThrownBy(() -> users.saveAndFlush(new User("carol@example.com", HASH)))
+		assertThatThrownBy(() -> users.saveAndFlush(new User("carol@example.com", "Test User", HASH)))
 				.isInstanceOf(DataIntegrityViolationException.class);
 	}
 
 	@Test
 	void existsByEmailReportsWhetherAnAccountExists() {
-		users.saveAndFlush(new User("dave@example.com", HASH));
+		users.saveAndFlush(new User("dave@example.com", "Test User", HASH));
 
 		assertThat(users.existsByEmail("dave@example.com")).isTrue();
 		assertThat(users.existsByEmail("nobody@example.com")).isFalse();

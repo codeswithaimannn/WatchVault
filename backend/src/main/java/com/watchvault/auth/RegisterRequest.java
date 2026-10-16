@@ -1,10 +1,18 @@
 package com.watchvault.auth;
 
+import com.watchvault.user.User;
+
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 public record RegisterRequest(
+
+		@NotBlank(message = "Name is required.")
+		@Size(max = User.MAX_DISPLAY_NAME_LENGTH, message = "Name must be at most 50 characters.")
+		@Pattern(regexp = "[^\\p{Cntrl}]*", message = "Name contains characters that are not allowed.")
+		String displayName,
 
 		@NotBlank(message = "Email is required.")
 		@Email(message = "Enter a valid email address.")
@@ -18,6 +26,7 @@ public record RegisterRequest(
 
 	/** Trim before validation runs, so " bob@example.com" is not rejected as invalid. */
 	public RegisterRequest {
+		displayName = displayName == null ? null : displayName.trim();
 		email = email == null ? null : email.trim();
 	}
 }

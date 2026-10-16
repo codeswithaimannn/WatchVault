@@ -34,6 +34,15 @@ class DatabaseMigrationTest {
 	}
 
 	@Test
+	void migrationV2AddedDisplayName() {
+		String nullable = jdbc.queryForObject("""
+				SELECT is_nullable FROM information_schema.columns
+				WHERE table_schema = DATABASE() AND table_name = 'users' AND column_name = 'display_name'""",
+				String.class);
+		assertThat(nullable).isEqualTo("NO");
+	}
+
+	@Test
 	void userTablesExist() {
 		List<String> tables = jdbc.queryForList("""
 				SELECT table_name FROM information_schema.tables

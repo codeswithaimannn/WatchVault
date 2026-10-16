@@ -107,8 +107,10 @@ class PreferencesApiTest {
 	private Cookie registerAndLogin(String email) throws Exception {
 		String credentials = """
 				{"email": "%s", "password": "%s"}""".formatted(email, PASSWORD);
+		String registration = """
+				{"displayName": "Test User", "email": "%s", "password": "%s"}""".formatted(email, PASSWORD);
 		mvc.perform(post("/api/auth/register").with(xsrf())
-				.contentType(MediaType.APPLICATION_JSON).content(credentials))
+				.contentType(MediaType.APPLICATION_JSON).content(registration))
 				.andExpect(status().isCreated());
 		return mvc.perform(post("/api/auth/login").with(xsrf())
 				.contentType(MediaType.APPLICATION_JSON).content(credentials))

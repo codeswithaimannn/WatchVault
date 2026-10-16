@@ -43,7 +43,7 @@ public class AuthController {
 
 	@PostMapping("/register")
 	public ResponseEntity<UserResponse> register(@Valid @RequestBody RegisterRequest request) {
-		User user = registrationService.register(request.email(), request.password());
+		User user = registrationService.register(request.email(), request.displayName(), request.password());
 		return ResponseEntity.created(URI.create("/api/users/me")).body(UserResponse.from(user));
 	}
 

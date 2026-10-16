@@ -48,9 +48,10 @@ class AuthFlowTest {
 
 	@Test
 	void registerCreatesAccountWithHashedPasswordAndDefaultPreferences() throws Exception {
-		register(" New.User@Example.com ", PASSWORD)
+		register("  Sam Carter ", " New.User@Example.com ", PASSWORD)
 				.andExpect(status().isCreated())
 				.andExpect(jsonPath("$.email").value("new.user@example.com"))
+				.andExpect(jsonPath("$.displayName").value("Sam Carter"))
 				.andExpect(jsonPath("$.role").value("USER"))
 				.andExpect(jsonPath("$.passwordHash").doesNotExist());
 
@@ -70,8 +71,9 @@ class AuthFlowTest {
 
 	@Test
 	void invalidRegistrationReturnsFieldErrors() throws Exception {
-		register("not-an-email", "short")
+		register("   ", "not-an-email", "short")
 				.andExpect(status().isBadRequest())
+				.andExpect(jsonPath("$.errors.displayName").value("Name is required."))
 				.andExpect(jsonPath("$.errors.email").exists())
 				.andExpect(jsonPath("$.errors.password").value("Password must be 12 to 72 characters."));
 	}
@@ -178,9 +180,14 @@ class AuthFlowTest {
 	}
 
 	private ResultActions register(String email, String password) throws Exception {
+		return register("Test User", email, password);
+	}
+
+	private ResultActions register(String displayName, String email, String password) throws Exception {
 		return mvc.perform(post("/api/auth/register").with(xsrf())
 				.contentType(MediaType.APPLICATION_JSON)
-				.content(json(email, password)));
+				.content("""
+						{"displayName": "%s", "email": "%s", "password": "%s"}""".formatted(displayName, email, password)));
 	}
 
 	private ResultActions login(String email, String password) throws Exception {

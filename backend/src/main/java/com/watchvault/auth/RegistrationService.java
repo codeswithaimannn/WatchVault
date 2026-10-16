@@ -27,7 +27,7 @@ public class RegistrationService {
 
 	/** Creates the account and its default preferences together: both or neither. */
 	@Transactional
-	public User register(String email, String password) {
+	public User register(String email, String displayName, String password) {
 		if (PasswordRules.exceedsBcryptLimit(password)) {
 			throw new InvalidInputException("Password is too long.");
 		}
@@ -36,7 +36,7 @@ public class RegistrationService {
 			throw new EmailAlreadyRegisteredException();
 		}
 		try {
-			User user = users.saveAndFlush(new User(normalizedEmail, passwordEncoder.encode(password)));
+			User user = users.saveAndFlush(new User(normalizedEmail, displayName, passwordEncoder.encode(password)));
 			preferences.save(new UserPreferences(user));
 			return user;
 		} catch (DataIntegrityViolationException e) {

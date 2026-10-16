@@ -33,7 +33,7 @@ class UserPreferencesRepositoryTest {
 
 	@Test
 	void newPreferencesDefaultToGbAndShareTheUserId() {
-		User user = users.save(new User("alice@example.com", "hash"));
+		User user = users.save(new User("alice@example.com", "Test User", "hash"));
 
 		UserPreferences saved = preferences.saveAndFlush(new UserPreferences(user));
 
@@ -43,7 +43,7 @@ class UserPreferencesRepositoryTest {
 
 	@Test
 	void languagesAndGenresSurviveAReloadFromTheDatabase() {
-		UserPreferences prefs = new UserPreferences(users.save(new User("bob@example.com", "hash")));
+		UserPreferences prefs = new UserPreferences(users.save(new User("bob@example.com", "Test User", "hash")));
 		prefs.replaceLanguages(Set.of("en", "JA"));
 		prefs.replaceGenres(Set.of(new PreferredGenre(MediaType.MOVIE, SCI_FI_GENRE_ID)));
 		Long userId = preferences.saveAndFlush(prefs).getUserId();
@@ -58,7 +58,7 @@ class UserPreferencesRepositoryTest {
 
 	@Test
 	void sameGenreIdCanBeStoredForMovieAndTv() {
-		UserPreferences prefs = new UserPreferences(users.save(new User("carol@example.com", "hash")));
+		UserPreferences prefs = new UserPreferences(users.save(new User("carol@example.com", "Test User", "hash")));
 		prefs.replaceGenres(Set.of(
 				new PreferredGenre(MediaType.MOVIE, SCI_FI_GENRE_ID),
 				new PreferredGenre(MediaType.TV, SCI_FI_GENRE_ID)));
@@ -70,7 +70,7 @@ class UserPreferencesRepositoryTest {
 
 	@Test
 	void deletingAUserDeletesTheirPreferences() {
-		User user = users.save(new User("dave@example.com", "hash"));
+		User user = users.save(new User("dave@example.com", "Test User", "hash"));
 		UserPreferences prefs = new UserPreferences(user);
 		prefs.replaceLanguages(Set.of("en"));
 		preferences.saveAndFlush(prefs);
