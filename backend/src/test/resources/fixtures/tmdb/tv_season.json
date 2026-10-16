@@ -1,0 +1,17 @@
+{
+  "id": 9001,
+  "season_number": 1,
+  "name": "Season 1",
+  "air_date": "2020-04-04",
+  "episodes": [
+    {
+      "id": 90011, "episode_number": 1, "season_number": 1, "name": "Pilot",
+      "overview": "It begins.", "air_date": "2020-04-04", "runtime": 24, "still_path": "/ep1.jpg",
+      "episode_type": "standard"
+    },
+    {
+      "id": 90012, "episode_number": 2, "season_number": 1, "name": "TBA",
+      "overview": "", "air_date": null, "runtime": null, "still_path": null
+    }
+  ]
+}

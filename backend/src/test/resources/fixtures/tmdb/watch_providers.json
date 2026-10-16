@@ -1,0 +1,17 @@
+{
+  "id": 1001,
+  "results": {
+    "US": {
+      "link": "https://www.themoviedb.org/movie/1001/watch?locale=US",
+      "flatrate": [{ "provider_id": 99, "provider_name": "US Only Service", "logo_path": "/us.png", "display_priority": 0 }]
+    },
+    "GB": {
+      "link": "https://www.themoviedb.org/movie/1001/watch?locale=GB",
+      "flatrate": [
+        { "provider_id": 8, "provider_name": "Second Service", "logo_path": "/second.png", "display_priority": 5 },
+        { "provider_id": 9, "provider_name": "First Service", "logo_path": "/first.png", "display_priority": 1 }
+      ],
+      "buy": [{ "provider_id": 2, "provider_name": "Example Store", "logo_path": "/store.png", "display_priority": 3 }]
+    }
+  }
+}

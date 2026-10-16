@@ -1,0 +1,33 @@
+{
+  "id": 1001,
+  "title": "Example Movie",
+  "original_title": "Example Movie",
+  "original_language": "en",
+  "overview": "A made-up film.",
+  "tagline": "",
+  "poster_path": "/example-movie.jpg",
+  "backdrop_path": "/example-backdrop.jpg",
+  "release_date": "2023-05-01",
+  "runtime": 118,
+  "status": "Released",
+  "imdb_id": "tt0000001",
+  "budget": 1000000,
+  "genres": [{ "id": 28, "name": "Action" }, { "id": 878, "name": "Science Fiction" }],
+  "release_dates": {
+    "results": [
+      {
+        "iso_3166_1": "US",
+        "release_dates": [{ "release_date": "2023-05-01T00:00:00.000Z", "type": 3, "certification": "PG-13" }]
+      },
+      {
+        "iso_3166_1": "GB",
+        "release_dates": [
+          { "release_date": "2023-04-20T00:00:00.000Z", "type": 1, "note": "London premiere" },
+          { "release_date": "2023-05-12T00:00:00.000Z", "type": 3, "certification": "12A" },
+          { "release_date": "2023-05-10T00:00:00.000Z", "type": 2, "certification": "12A" },
+          { "release_date": "2023-06-01T00:00:00.000Z", "type": 4 }
+        ]
+      }
+    ]
+  }
+}

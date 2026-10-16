@@ -1,0 +1,24 @@
+{
+  "page": 1,
+  "total_pages": 3,
+  "total_results": 52,
+  "results": [
+    {
+      "id": 1001, "media_type": "movie", "title": "Example Movie", "original_title": "Example Movie",
+      "original_language": "en", "overview": "A made-up film.", "poster_path": "/example-movie.jpg",
+      "release_date": "2023-05-01", "genre_ids": [28, 878], "popularity": 12.3, "adult": false
+    },
+    {
+      "id": 2001, "media_type": "tv", "name": "Example Anime Show", "original_name": "Rei no Anime",
+      "original_language": "ja", "overview": "A made-up anime.", "poster_path": null,
+      "first_air_date": "2020-04-04", "genre_ids": [16, 10759], "origin_country": ["JP"]
+    },
+    {
+      "id": 3001, "media_type": "person", "name": "Example Person", "known_for_department": "Acting"
+    },
+    {
+      "id": 2002, "media_type": "tv", "name": "Undated Show", "original_language": "en",
+      "overview": "", "first_air_date": "", "genre_ids": [16]
+    }
+  ]
+}
