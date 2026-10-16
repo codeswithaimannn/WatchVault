@@ -1,0 +1,24 @@
+[
+  {
+    "id": 8001, "season": 2026, "number": 165, "name": "Monday", "airdate": "2026-10-15",
+    "airtime": "19:30", "runtime": 30,
+    "_embedded": {
+      "show": {
+        "id": 601, "name": "Example Soap", "status": "Running",
+        "network": null, "webChannel": { "id": 2, "name": "Example Player" },
+        "externals": { "imdb": "tt0000010", "thetvdb": 400001 }
+      }
+    }
+  },
+  {
+    "id": 8002, "season": 1, "number": 1, "name": "Drop Day", "airdate": "2026-10-15",
+    "airtime": "08:00", "airstamp": "2026-10-15T12:00:00+00:00", "runtime": 45,
+    "_embedded": {
+      "show": {
+        "id": 602, "name": "Example Web Series", "status": "Running",
+        "network": null, "webChannel": { "id": 3, "name": "Example Stream" },
+        "externals": { "imdb": null, "thetvdb": null }
+      }
+    }
+  }
+]

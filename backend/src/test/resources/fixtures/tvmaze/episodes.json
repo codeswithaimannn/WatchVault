@@ -1,0 +1,10 @@
+[
+  {
+    "id": 7001, "season": 1, "number": 1, "name": "First", "type": "regular",
+    "airdate": "2022-02-18", "airtime": "", "airstamp": "2022-02-18T12:00:00+00:00", "runtime": 57
+  },
+  {
+    "id": 7002, "season": 1, "number": 2, "name": "Second", "type": "regular",
+    "airdate": "", "airtime": "", "airstamp": null, "runtime": null
+  }
+]

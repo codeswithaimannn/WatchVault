@@ -1,0 +1,11 @@
+{
+  "id": 501,
+  "name": "Example Streaming Show",
+  "type": "Scripted",
+  "language": "English",
+  "status": "Running",
+  "premiered": "2022-02-18",
+  "network": null,
+  "webChannel": { "id": 1, "name": "Example Stream", "country": null },
+  "externals": { "tvrage": null, "thetvdb": 300001, "imdb": "tt0000002" }
+}
