@@ -8,6 +8,7 @@ import { formatDate, formatRuntime, languageName, yearOf } from '../lib/format'
 import { backdropUrl } from '../lib/tmdbImages'
 import { MediaBadge } from '../titles/MediaBadge'
 import { PosterImage } from '../titles/PosterImage'
+import { SeasonList } from '../titles/SeasonList'
 import { useTitle } from '../titles/titleHooks'
 import { NotFoundPage } from './NotFoundPage'
 
@@ -97,6 +98,10 @@ function TitleContent({ title }: { title: TitleDetails }) {
         </section>
         <Facts title={title} />
       </div>
+
+      {title.mediaType === 'TV' && title.seasons.length > 0 && (
+        <SeasonList tvTmdbId={title.tmdbId} seasons={title.seasons} />
+      )}
     </article>
   )
 }
