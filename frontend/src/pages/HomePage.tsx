@@ -1,6 +1,11 @@
+import { Link } from 'react-router'
+
 import { useCurrentUser } from '../auth/authHooks'
 
-/** Placeholder home. Library, "continue watching" and recommendations arrive in later milestones. */
+/** Example searches to get started: one film, one series, one anime. */
+const SUGGESTED_SEARCHES = ['Dune', 'Severance', 'Spirited Away']
+
+/** Home. The library, "continue watching" and recommendations replace this in later milestones. */
 export function HomePage() {
   const { data: user } = useCurrentUser()
 
@@ -20,7 +25,21 @@ export function HomePage() {
             </svg>
           </div>
           <p className="mt-5 text-lg font-medium text-slate-200">Your library is empty for now.</p>
-          <p className="mt-1.5 text-sm text-slate-400">Search and adding titles are coming soon.</p>
+          <p className="mt-1.5 text-sm text-slate-400">
+            Use the search bar above to find films, series and anime. Adding them to your library comes next.
+          </p>
+          <div className="mt-6 flex flex-wrap justify-center gap-2">
+            <span className="self-center text-xs text-slate-500">Try:</span>
+            {SUGGESTED_SEARCHES.map((query) => (
+              <Link
+                key={query}
+                to={`/search?q=${encodeURIComponent(query)}`}
+                className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-sm text-slate-300 transition hover:border-sky-400/40 hover:text-white"
+              >
+                {query}
+              </Link>
+            ))}
+          </div>
         </div>
       </div>
     </section>
