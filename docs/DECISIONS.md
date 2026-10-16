@@ -155,6 +155,12 @@ docs, TMDB watch-providers reference, TVmaze API docs. Re-check these if the pro
   same-site paths (so links can't redirect to another website).
 - **Forms use React Hook Form + Zod,** with rules mirroring the backend for quick feedback. The
   backend stays the authority. Server field errors are shown under the matching field.
-- **Style:** dark cinematic theme (zinc-950 background, amber accent), one theme only for now.
+- **Style (revised at the owner's request):** a dark, restrained theme with an ink background,
+  slate greys, white text and one sky-to-teal gradient used sparingly (buttons, key words). There is no
+  pink, purple or amber. The login/register backdrop is a drifting wall of poster shapes built from
+  CSS gradients (not real posters, so there are no copyright or TMDB credit issues), and it respects
+  reduce motion.
+- **Display name:** collected at registration (V2 migration; existing accounts start with the part
+  of their email before the @). It's user-written text, so React's escaping makes it safe to show.
 - **Dependency versions:** React 19, React Router 8, TanStack Query 5, Zod 4, Tailwind 4, Vite 8,
   Vitest 5.

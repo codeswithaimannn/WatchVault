@@ -33,7 +33,7 @@ function LogoutButton() {
   return (
     <div className="flex items-center gap-3">
       {logout.isError && (
-        <span role="alert" className="text-sm text-rose-300">
+        <span role="alert" className="text-sm text-red-300">
           {errorMessage(logout.error)}
         </span>
       )}
@@ -41,7 +41,7 @@ function LogoutButton() {
         type="button"
         onClick={handleLogout}
         disabled={logout.isPending}
-        className="rounded-lg border border-white/10 bg-white/5 px-3.5 py-1.5 text-sm text-zinc-300 transition hover:border-white/20 hover:bg-white/10 hover:text-white disabled:opacity-60"
+        className="rounded-lg border border-white/10 bg-white/5 px-3.5 py-1.5 text-sm text-slate-300 transition hover:border-white/20 hover:bg-white/10 hover:text-white disabled:opacity-60"
       >
         {logout.isPending ? 'Logging out…' : 'Log out'}
       </button>

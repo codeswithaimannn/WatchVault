@@ -4,16 +4,17 @@
  * Pure CSS: no real posters (copyrighted, and TMDB images need TMDB credit).
  */
 
-// Deep, muted colours so the wall stays in the background. Full class names, so Tailwind finds them.
+// Cool, muted blues, teals and greys so the wall stays in the background.
+// Full class names, so Tailwind finds them.
 const POSTER_COLOURS = [
-  'from-indigo-800 to-slate-950',
-  'from-rose-900 to-zinc-950',
-  'from-amber-700 to-stone-950',
-  'from-violet-800 to-indigo-950',
-  'from-teal-800 to-slate-950',
-  'from-fuchsia-900 to-zinc-950',
-  'from-sky-800 to-slate-950',
-  'from-orange-800 to-neutral-950',
+  'from-sky-900 to-slate-950',
+  'from-slate-700 to-slate-950',
+  'from-teal-900 to-slate-950',
+  'from-blue-900 to-slate-950',
+  'from-cyan-900 to-zinc-950',
+  'from-zinc-700 to-zinc-950',
+  'from-slate-800 to-blue-950',
+  'from-gray-700 to-neutral-950',
 ]
 
 const COLUMN_COUNT = 7
@@ -34,8 +35,8 @@ export function PosterWall() {
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,var(--color-ink)_85%)]" />
 
       {/* Projector glow from the top-left, very faint. */}
-      <div className="absolute -top-40 -left-40 size-[42rem] rounded-full bg-violet-600/15 blur-3xl" />
-      <div className="absolute -right-32 bottom-0 size-[30rem] rounded-full bg-rose-500/10 blur-3xl" />
+      <div className="absolute -top-40 -left-40 size-[42rem] rounded-full bg-sky-600/12 blur-3xl" />
+      <div className="absolute -right-32 bottom-0 size-[30rem] rounded-full bg-teal-500/8 blur-3xl" />
 
       <div className="film-grain absolute inset-0 opacity-[0.06] mix-blend-overlay" />
     </div>

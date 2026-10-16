@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
-import { authApi, type Credentials, type User } from '../api/auth'
+import { authApi, type Registration, type User } from '../api/auth'
 import { ApiError } from '../api/client'
 
 /** TanStack Query cache key for "who is logged in". */
@@ -45,9 +45,9 @@ export function useLogin() {
 export function useRegister() {
   const queryClient = useQueryClient()
   return useMutation({
-    mutationFn: async (credentials: Credentials) => {
-      await authApi.register(credentials)
-      return authApi.login(credentials)
+    mutationFn: async (registration: Registration) => {
+      await authApi.register(registration)
+      return authApi.login({ email: registration.email, password: registration.password })
     },
     onSuccess: (user) => queryClient.setQueryData(CURRENT_USER_KEY, user),
   })

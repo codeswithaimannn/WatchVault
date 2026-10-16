@@ -4,6 +4,7 @@ import { apiRequest } from './client'
 export interface User {
   id: number
   email: string
+  displayName: string
   role: 'USER' | 'ADMIN'
 }
 
@@ -12,9 +13,13 @@ export interface Credentials {
   password: string
 }
 
+export interface Registration extends Credentials {
+  displayName: string
+}
+
 export const authApi = {
-  register: (credentials: Credentials) =>
-    apiRequest<User>('/api/auth/register', { method: 'POST', body: credentials }),
+  register: (registration: Registration) =>
+    apiRequest<User>('/api/auth/register', { method: 'POST', body: registration }),
 
   /** On success the backend sets the httpOnly login cookie; we never see the token itself. */
   login: (credentials: Credentials) =>

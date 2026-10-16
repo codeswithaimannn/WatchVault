@@ -1,11 +1,11 @@
 @import 'tailwindcss';
 
 /*
- * Theme: deep "ink" background, faint colour glows, and one brand gradient
- * (amber -> rose -> violet) used sparingly: logo, buttons, key words.
+ * Theme: deep "ink" background, slate greys, white text, and one restrained
+ * brand gradient (sky blue -> teal) used sparingly: buttons and a few key words.
  */
 @theme {
-  --color-ink: #07070d;
+  --color-ink: #070a0f;
 
   --animate-drift: drift 80s linear infinite;
 
@@ -25,21 +25,21 @@
   }
 
   body {
-    @apply bg-ink text-zinc-100 antialiased;
-    /* Two soft glows near the top; low opacity so the page never looks washed out. */
+    @apply bg-ink text-slate-100 antialiased;
+    /* Two soft cool glows near the top; low opacity so the page never looks washed out. */
     background-image:
-      radial-gradient(60rem 30rem at 10% -10%, rgb(139 92 246 / 0.16), transparent 60%),
-      radial-gradient(50rem 26rem at 95% -5%, rgb(244 63 94 / 0.09), transparent 60%);
+      radial-gradient(60rem 30rem at 10% -10%, rgb(14 165 233 / 0.11), transparent 60%),
+      radial-gradient(50rem 26rem at 95% -5%, rgb(20 184 166 / 0.07), transparent 60%);
     background-attachment: fixed;
   }
 }
 
 @utility bg-brand-gradient {
-  background-image: linear-gradient(100deg, #f59e0b, #f43f5e 55%, #8b5cf6);
+  background-image: linear-gradient(100deg, #0284c7, #0d9488);
 }
 
 @utility text-brand-gradient {
-  background-image: linear-gradient(100deg, #fbbf24, #fb7185 50%, #a78bfa);
+  background-image: linear-gradient(100deg, #7dd3fc, #5eead4);
   background-clip: text;
   color: transparent;
 }

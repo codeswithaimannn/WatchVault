@@ -4,7 +4,7 @@ import { describe, expect, it } from 'vitest'
 
 import { fakeBackend, giveCsrfCookie, json, noContent, renderApp, unauthorized } from '../test/testUtils'
 
-const ALICE = { id: 1, email: 'alice@example.com', role: 'USER' }
+const ALICE = { id: 1, email: 'alice@example.com', displayName: 'Alice', role: 'USER' }
 const PASSWORD = 'correct horse battery'
 
 describe('login', () => {
@@ -42,7 +42,7 @@ describe('login', () => {
 
     await fillAndSubmitLogin(ALICE.email, PASSWORD)
 
-    expect(await screen.findByRole('heading', { name: 'Welcome, alice@example.com' })).toBeInTheDocument()
+    expect(await screen.findByRole('heading', { name: 'Welcome, Alice' })).toBeInTheDocument()
   })
 })
 
@@ -79,11 +79,21 @@ describe('protected pages', () => {
 })
 
 describe('register', () => {
+  it('requires a name', async () => {
+    fakeBackend({ 'GET /api/users/me': unauthorized })
+    renderApp('/register')
+
+    await userEvent.click(await screen.findByRole('button', { name: 'Create account' }))
+
+    expect(await screen.findByText('Name is required.')).toBeInTheDocument()
+  })
+
   it('checks that the passwords match before calling the server', async () => {
     const requests = fakeBackend({ 'GET /api/users/me': unauthorized })
     renderApp('/register')
 
-    await userEvent.type(await screen.findByLabelText('Email'), 'new@example.com')
+    await userEvent.type(await screen.findByLabelText('Name'), 'New User')
+    await userEvent.type(screen.getByLabelText('Email'), 'new@example.com')
     await userEvent.type(screen.getByLabelText('Password'), PASSWORD)
     await userEvent.type(screen.getByLabelText('Confirm password'), 'something else entirely')
     await userEvent.click(screen.getByRole('button', { name: 'Create account' }))
@@ -101,7 +111,7 @@ describe('register', () => {
     })
     renderApp('/register')
 
-    await fillAndSubmitRegister('new@example.com', PASSWORD)
+    await fillAndSubmitRegister('New User', 'new@example.com', PASSWORD)
 
     expect(await screen.findByText('Email is too long.')).toBeInTheDocument()
   })
@@ -115,11 +125,11 @@ describe('register', () => {
     })
     renderApp('/register')
 
-    await fillAndSubmitRegister(ALICE.email, PASSWORD)
+    await fillAndSubmitRegister(ALICE.displayName, ALICE.email, PASSWORD)
 
-    expect(await screen.findByRole('heading', { name: 'Welcome, alice@example.com' })).toBeInTheDocument()
+    expect(await screen.findByRole('heading', { name: 'Welcome, Alice' })).toBeInTheDocument()
     const registerRequest = requests.find((r) => r.url === '/api/auth/register')
-    expect(registerRequest?.body).toEqual({ email: ALICE.email, password: PASSWORD }) // no confirmPassword
+    expect(registerRequest?.body).toEqual({ displayName: 'Alice', email: ALICE.email, password: PASSWORD }) // no confirmPassword
   })
 })
 
@@ -129,8 +139,9 @@ async function fillAndSubmitLogin(email: string, password: string) {
   await userEvent.click(screen.getByRole('button', { name: 'Sign in' }))
 }
 
-async function fillAndSubmitRegister(email: string, password: string) {
-  await userEvent.type(await screen.findByLabelText('Email'), email)
+async function fillAndSubmitRegister(name: string, email: string, password: string) {
+  await userEvent.type(await screen.findByLabelText('Name'), name)
+  await userEvent.type(screen.getByLabelText('Email'), email)
   await userEvent.type(screen.getByLabelText('Password'), password)
   await userEvent.type(screen.getByLabelText('Confirm password'), password)
   await userEvent.click(screen.getByRole('button', { name: 'Create account' }))

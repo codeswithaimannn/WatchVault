@@ -7,6 +7,7 @@ import { z } from 'zod'
 export const PASSWORD_MIN_LENGTH = 12
 export const PASSWORD_MAX_LENGTH = 72
 const EMAIL_MAX_LENGTH = 254
+const DISPLAY_NAME_MAX_LENGTH = 50
 
 const passwordLengthMessage = `Password must be ${PASSWORD_MIN_LENGTH} to ${PASSWORD_MAX_LENGTH} characters.`
 
@@ -23,6 +24,11 @@ export const loginSchema = z.object({
 
 export const registerSchema = z
   .object({
+    displayName: z
+      .string()
+      .trim()
+      .min(1, 'Name is required.')
+      .max(DISPLAY_NAME_MAX_LENGTH, `Name must be at most ${DISPLAY_NAME_MAX_LENGTH} characters.`),
     email: email.pipe(z.email('Enter a valid email address.')),
     password: z
       .string()

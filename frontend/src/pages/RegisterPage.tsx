@@ -8,7 +8,7 @@ import { PASSWORD_MIN_LENGTH, registerSchema } from '../auth/schemas'
 import { AuthCard, FormAlert, SubmitButton } from '../components/AuthCard'
 import { TextField } from '../components/TextField'
 
-const SERVER_FIELDS = ['email', 'password'] as const
+const SERVER_FIELDS = ['displayName', 'email', 'password'] as const
 
 export function RegisterPage() {
   const registration = useRegister()
@@ -19,9 +19,10 @@ export function RegisterPage() {
     formState: { errors },
   } = useForm({ resolver: zodResolver(registerSchema) })
 
-  const onSubmit = handleSubmit(({ email, password }) =>
+  // confirmPassword is only for the form; it is not sent to the server.
+  const onSubmit = handleSubmit(({ displayName, email, password }) =>
     registration.mutate(
-      { email, password },
+      { displayName, email, password },
       {
         // On success GuestOnly (routeGuards.tsx) sees the new user and redirects home.
         // If the server rejects a field, show its message under that field.
@@ -57,6 +58,14 @@ export function RegisterPage() {
         {registration.isError && !hasFieldErrorsFromServer && (
           <FormAlert>{errorMessage(registration.error)}</FormAlert>
         )}
+        <TextField
+          label="Name"
+          type="text"
+          autoComplete="name"
+          placeholder="What should we call you?"
+          error={errors.displayName?.message}
+          {...register('displayName')}
+        />
         <TextField
           label="Email"
           type="email"
