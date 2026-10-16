@@ -4,7 +4,6 @@ import static com.watchvault.support.TestCsrf.xsrf;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.empty;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -18,6 +17,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.watchvault.support.TestAccounts;
+
 import jakarta.servlet.http.Cookie;
 
 @SpringBootTest
@@ -26,7 +27,6 @@ import jakarta.servlet.http.Cookie;
 class PreferencesApiTest {
 
 	private static final String URL = "/api/users/me/preferences";
-	private static final String PASSWORD = "correct horse battery";
 	private static final String VALID_UPDATE = """
 			{"region": "IE", "languages": ["en", "ja"],
 			 "genres": [{"mediaType": "MOVIE", "genreId": 878}, {"mediaType": "TV", "genreId": 10765}]}""";
@@ -105,16 +105,6 @@ class PreferencesApiTest {
 	}
 
 	private Cookie registerAndLogin(String email) throws Exception {
-		String credentials = """
-				{"email": "%s", "password": "%s"}""".formatted(email, PASSWORD);
-		String registration = """
-				{"displayName": "Test User", "email": "%s", "password": "%s"}""".formatted(email, PASSWORD);
-		mvc.perform(post("/api/auth/register").with(xsrf())
-				.contentType(MediaType.APPLICATION_JSON).content(registration))
-				.andExpect(status().isCreated());
-		return mvc.perform(post("/api/auth/login").with(xsrf())
-				.contentType(MediaType.APPLICATION_JSON).content(credentials))
-				.andExpect(status().isOk())
-				.andReturn().getResponse().getCookie("watchvault_token");
+		return TestAccounts.registerAndLogin(mvc, email);
 	}
 }
