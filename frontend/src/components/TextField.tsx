@@ -24,11 +24,11 @@ export function TextField({ label, error, id, ...inputProps }: TextFieldProps) {
         id={inputId}
         aria-invalid={error ? true : undefined}
         aria-describedby={error ? errorId : undefined}
-        className="rounded-md border border-zinc-700 bg-zinc-900 px-3 py-2 text-zinc-100 placeholder:text-zinc-500 focus:border-amber-400 focus:outline-none focus:ring-1 focus:ring-amber-400 aria-invalid:border-red-500"
+        className="rounded-lg border border-white/10 bg-white/5 px-3 py-2.5 text-zinc-100 transition placeholder:text-zinc-500 focus:border-violet-400/60 focus:bg-white/[0.07] focus:ring-2 focus:ring-violet-500/30 focus:outline-none aria-invalid:border-rose-500/70"
         {...inputProps}
       />
       {error && (
-        <p id={errorId} className="text-sm text-red-400">
+        <p id={errorId} className="text-sm text-rose-300">
           {error}
         </p>
       )}

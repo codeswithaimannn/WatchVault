@@ -43,10 +43,11 @@ export function RegisterPage() {
   return (
     <AuthCard
       title="Create your account"
+      subtitle="Start your vault: films, series and anime in one place."
       footer={
         <>
           Already have an account?{' '}
-          <Link to="/login" className="font-medium text-amber-400 hover:text-amber-300">
+          <Link to="/login" className="text-brand-gradient font-semibold hover:brightness-125">
             Sign in
           </Link>
         </>

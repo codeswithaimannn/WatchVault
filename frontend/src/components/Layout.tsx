@@ -1,23 +1,22 @@
-import { Link, Outlet, useNavigate } from 'react-router'
+import { Outlet, useNavigate } from 'react-router'
 
 import { errorMessage } from '../api/client'
 import { useCurrentUser, useLogout } from '../auth/authHooks'
+import { Logo } from './Logo'
 
-/** Header and page frame shared by every page. */
+/** Frame for the logged-in app: glass header that stays at the top, then the page. */
 export function Layout() {
   const { data: user } = useCurrentUser()
 
   return (
     <div className="flex min-h-screen flex-col">
-      <header className="border-b border-zinc-800/80 bg-zinc-950/80 backdrop-blur">
-        <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-4">
-          <Link to="/" className="text-xl font-bold tracking-tight">
-            Watch<span className="text-amber-400">Vault</span>
-          </Link>
+      <header className="sticky top-0 z-20 border-b border-white/5 bg-ink/70 backdrop-blur-xl">
+        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3.5">
+          <Logo />
           {user && <LogoutButton />}
         </div>
       </header>
-      <main className="mx-auto w-full max-w-5xl flex-1 px-4 py-12">
+      <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-12">
         <Outlet />
       </main>
     </div>
@@ -34,7 +33,7 @@ function LogoutButton() {
   return (
     <div className="flex items-center gap-3">
       {logout.isError && (
-        <span role="alert" className="text-sm text-red-400">
+        <span role="alert" className="text-sm text-rose-300">
           {errorMessage(logout.error)}
         </span>
       )}
@@ -42,7 +41,7 @@ function LogoutButton() {
         type="button"
         onClick={handleLogout}
         disabled={logout.isPending}
-        className="rounded-md border border-zinc-700 px-3 py-1.5 text-sm text-zinc-300 hover:border-zinc-500 hover:text-zinc-100 disabled:opacity-60"
+        className="rounded-lg border border-white/10 bg-white/5 px-3.5 py-1.5 text-sm text-zinc-300 transition hover:border-white/20 hover:bg-white/10 hover:text-white disabled:opacity-60"
       >
         {logout.isPending ? 'Logging out…' : 'Log out'}
       </button>

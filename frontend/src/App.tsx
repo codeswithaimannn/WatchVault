@@ -1,6 +1,7 @@
 import { Route, Routes } from 'react-router'
 
 import { GuestOnly, RequireAuth } from './auth/routeGuards'
+import { AuthLayout } from './components/AuthLayout'
 import { Layout } from './components/Layout'
 import { HomePage } from './pages/HomePage'
 import { LoginPage } from './pages/LoginPage'
@@ -11,11 +12,16 @@ import { RegisterPage } from './pages/RegisterPage'
 export function App() {
   return (
     <Routes>
-      <Route element={<Layout />}>
-        <Route element={<GuestOnly />}>
+      {/* Login and register: full-screen cinematic layout, no app header. */}
+      <Route element={<GuestOnly />}>
+        <Route element={<AuthLayout />}>
           <Route path="login" element={<LoginPage />} />
           <Route path="register" element={<RegisterPage />} />
         </Route>
+      </Route>
+
+      {/* Everything else: the app layout with the header. */}
+      <Route element={<Layout />}>
         <Route element={<RequireAuth />}>
           <Route index element={<HomePage />} />
         </Route>

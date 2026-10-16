@@ -1,12 +1,50 @@
 @import 'tailwindcss';
 
-/* Dark cinematic theme: near-black background, light text, amber accent. */
+/*
+ * Theme: deep "ink" background, faint colour glows, and one brand gradient
+ * (amber -> rose -> violet) used sparingly: logo, buttons, key words.
+ */
+@theme {
+  --color-ink: #07070d;
+
+  --animate-drift: drift 80s linear infinite;
+
+  @keyframes drift {
+    from {
+      transform: translateY(0);
+    }
+    to {
+      transform: translateY(-50%);
+    }
+  }
+}
+
 @layer base {
   :root {
     color-scheme: dark;
   }
 
   body {
-    @apply bg-zinc-950 text-zinc-100 antialiased;
+    @apply bg-ink text-zinc-100 antialiased;
+    /* Two soft glows near the top; low opacity so the page never looks washed out. */
+    background-image:
+      radial-gradient(60rem 30rem at 10% -10%, rgb(139 92 246 / 0.16), transparent 60%),
+      radial-gradient(50rem 26rem at 95% -5%, rgb(244 63 94 / 0.09), transparent 60%);
+    background-attachment: fixed;
   }
+}
+
+@utility bg-brand-gradient {
+  background-image: linear-gradient(100deg, #f59e0b, #f43f5e 55%, #8b5cf6);
+}
+
+@utility text-brand-gradient {
+  background-image: linear-gradient(100deg, #fbbf24, #fb7185 50%, #a78bfa);
+  background-clip: text;
+  color: transparent;
+}
+
+/* Fine noise texture, like film grain. A tiny inline SVG: no image file to download. */
+@utility film-grain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }

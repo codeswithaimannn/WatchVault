@@ -22,10 +22,11 @@ export function LoginPage() {
   return (
     <AuthCard
       title="Sign in"
+      subtitle="Welcome back. Your watchlist missed you."
       footer={
         <>
           New to WatchVault?{' '}
-          <Link to="/register" className="font-medium text-amber-400 hover:text-amber-300">
+          <Link to="/register" className="text-brand-gradient font-semibold hover:brightness-125">
             Create an account
           </Link>
         </>
